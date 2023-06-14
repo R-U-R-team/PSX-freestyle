@@ -52,7 +52,7 @@ int rychblik = 500; //ms
 void setup() {
   
   pinMode(vypin, OUTPUT);
-  
+
   pinMode(pinS0, OUTPUT); 
   pinMode(pinS1, OUTPUT); 
   pinMode(pinS2, OUTPUT); 
@@ -108,14 +108,14 @@ void loop() {
     } while (Mterc != Zterc);
 
 
-    for(int i = rozsah[Mterc][0]; i < rozsah[Mterc][1];i++){
+    for(int i = rozsah[Mterc][0]; i <= rozsah[Mterc][1];i++){
 
       LEDterce.setPixelColor(i, LEDterce.Color(255,0,255)); 
 
       LEDterce.show(); 
     }
 
-    for(int i = rozsah[Zterc][0]; i < rozsah[Zterc][1];i++){
+    for(int i = rozsah[Zterc][0]; i <= rozsah[Zterc][1];i++){
 
       LEDterce.setPixelColor(i, LEDterce.Color(255,255,0)); 
 
@@ -135,7 +135,7 @@ void loop() {
 
         for(int i=0;i<6;i++){
 
-          for(int i = rozsah[Mterc][0]; i < rozsah[Mterc][1];i++){
+          for(int i = rozsah[Mterc][0]; i <= rozsah[Mterc][1];i++){
 
             LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
 
@@ -144,7 +144,7 @@ void loop() {
 
           delay(100);
 
-          for(int i = rozsah[Mterc][0]; i < rozsah[Mterc][1];i++){
+          for(int i = rozsah[Mterc][0]; i <= rozsah[Mterc][1];i++){
 
             LEDterce.setPixelColor(i, LEDterce.Color(255,0,255)); 
 
@@ -169,7 +169,7 @@ void loop() {
 
         for(int i=0;i<6;i++){
 
-          for(int i = rozsah[Zterc][0]; i < rozsah[Zterc][1];i++){
+          for(int i = rozsah[Zterc][0]; i <= rozsah[Zterc][1];i++){
 
             LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
 
@@ -178,7 +178,7 @@ void loop() {
 
           delay(100);
 
-          for(int i = rozsah[Zterc][0]; i < rozsah[Zterc][1];i++){
+          for(int i = rozsah[Zterc][0]; i <= rozsah[Zterc][1];i++){
 
             LEDterce.setPixelColor(i, LEDterce.Color(255,255,0)); 
 
