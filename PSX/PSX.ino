@@ -4,6 +4,8 @@ int citlivost = 500; // 0-1023, urcuje hranici
 
 int starterc = 0;
 
+int vypin = 2;
+
 int LMpin = 9;
 int LZpin = 10;
 int LTerpin = 11;
@@ -48,6 +50,8 @@ int Zterc;
 int rychblik = 500; //ms
 
 void setup() {
+  
+  pinMode(vypin, OUTPUT);
   
   pinMode(pinS0, OUTPUT); 
   pinMode(pinS1, OUTPUT); 
@@ -203,11 +207,40 @@ void loop() {
   }
   else if (skorem > 50 && skorez < 50){
 
-    for(int i=0;i<50;i++){
+    for(int i=0;i<11;i++){
 
-      LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
+      for(int i=0;i<50;i++){
 
-      LEDmag.show(); 
+        LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
+
+        LEDmag.show(); 
+      }
+
+      for(int i=0;i<80;i++){
+
+        LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
+
+        LEDterce.show(); 
+      }
+
+      delay(rychblik);
+
+      for(int i=0;i<50;i++){
+
+        LEDmag.setPixelColor(i, LEDmag.Color(255,0,255)); 
+
+        LEDmag.show(); 
+      }
+
+      for(int i=0;i<80;i++){
+
+        LEDterce.setPixelColor(i, LEDterce.Color(255,0,255)); 
+
+        LEDterce.show(); 
+      }
+
+      delay(rychblik);
+
     }
 
     for(int i=0;i<80;i++){
@@ -217,26 +250,12 @@ void loop() {
       LEDterce.show(); 
     }
 
-    delay(rychblik);
-
     for(int i=0;i<50;i++){
 
-      LEDmag.setPixelColor(i, LEDmag.Color(255,0,255)); 
+      LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
 
       LEDmag.show(); 
     }
-
-    for(int i=0;i<80;i++){
-
-      LEDterce.setPixelColor(i, LEDterce.Color(255,0,255)); 
-
-      LEDterce.show(); 
-    }
-
-    delay(rychblik);
-
-  }
-  else if (skorem < 50 && skorez > 50){
 
     for(int i=0;i<50;i++){
 
@@ -245,6 +264,47 @@ void loop() {
       LEDzlu.show(); 
     }
 
+    digitalWrite(vypin, HIGH);
+
+  }
+  else if (skorem < 50 && skorez > 50){
+
+    for(int i=0;i<11;i++){
+
+      for(int i=0;i<50;i++){
+
+        LEDzlu.setPixelColor(i, LEDzlu.Color(0,0,0)); 
+
+        LEDzlu.show(); 
+      }
+
+      for(int i=0;i<80;i++){
+
+        LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
+
+        LEDterce.show(); 
+      }
+
+      delay(rychblik);
+
+      for(int i=0;i<50;i++){
+
+        LEDzlu.setPixelColor(i, LEDzlu.Color(255,255,0)); 
+
+        LEDzlu.show(); 
+      }
+
+      for(int i=0;i<80;i++){
+
+        LEDterce.setPixelColor(i, LEDterce.Color(255,255,0)); 
+
+        LEDterce.show(); 
+      }
+
+      delay(rychblik);
+
+    }
+
     for(int i=0;i<80;i++){
 
       LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
@@ -252,24 +312,21 @@ void loop() {
       LEDterce.show(); 
     }
 
-    delay(rychblik);
+    for(int i=0;i<50;i++){
+
+      LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
+
+      LEDmag.show(); 
+    }
 
     for(int i=0;i<50;i++){
 
-      LEDzlu.setPixelColor(i, LEDzlu.Color(255,255,0)); 
+      LEDzlu.setPixelColor(i, LEDzlu.Color(0,0,0)); 
 
       LEDzlu.show(); 
     }
 
-    for(int i=0;i<80;i++){
-
-      LEDterce.setPixelColor(i, LEDterce.Color(255,255,0)); 
-
-      LEDterce.show(); 
-    }
-
-    delay(rychblik);
-
+    digitalWrite(vypin, HIGH);
   }
   else{
     Serial.println("chyba!");
