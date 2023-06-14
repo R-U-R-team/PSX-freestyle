@@ -151,9 +151,54 @@ void loop() {
 
         }
 
+        stav = 1;
+      }
+      else if(nactiKanal(Zterc)>citlivost){
+        skorez =+ 5;
 
+        for(int i=0;i<=skorez;i++){
+
+          LEDzlu.setPixelColor(i, LEDzlu.Color(255,255,0)); 
+
+          LEDzlu.show(); 
+        }
+
+        for(int i=0;i<6;i++){
+
+          for(int i = rozsah[Zterc][0]; i < rozsah[Zterc][1];i++){
+
+            LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
+
+            LEDterce.show(); 
+          }
+
+          delay(100);
+
+          for(int i = rozsah[Zterc][0]; i < rozsah[Zterc][1];i++){
+
+            LEDterce.setPixelColor(i, LEDterce.Color(255,255,0)); 
+
+            LEDterce.show(); 
+          }
+
+          delay(100);
+
+        }
+
+        stav = 1;
       };
-    } while();
+      
+    } while(stav == 1);
+
+    stav = 0;
+
+    for(int i = 0; i < 80;i++){
+
+            LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
+
+            LEDterce.show(); 
+    }
+
 
   }
   else if (skorem > 50 && skorez < 50){
