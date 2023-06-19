@@ -33,6 +33,7 @@ Adafruit_NeoPixel LEDterce = Adafruit_NeoPixel(80, LTerpin, NEO_GRB + NEO_KHZ800
 
 void setup() {
   
+  pinMode(LTerpin, OUTPUT); 
 
   pinMode(pinS0, OUTPUT); 
   pinMode(pinS1, OUTPUT); 
