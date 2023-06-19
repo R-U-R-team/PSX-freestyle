@@ -1,8 +1,8 @@
 #include <Adafruit_NeoPixel.h>
 
-int citlivost = 500; // 0-1023, urcuje hranici
+int citlivost = 800; // 0-1023, urcuje hranici
 
-int starterc = 0;
+int starterc = 2;
 
 int vypin = 2;
 
@@ -36,8 +36,8 @@ int rozsah[16][2]={
 };
 
 Adafruit_NeoPixel LEDterce = Adafruit_NeoPixel(80, LTerpin, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel LEDmag = Adafruit_NeoPixel(50, LMpin, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel LEDzlu = Adafruit_NeoPixel(50, LZpin, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel LEDmag = Adafruit_NeoPixel(36, LMpin, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel LEDzlu = Adafruit_NeoPixel(36, LZpin, NEO_GRB + NEO_KHZ800);
 
 int skorem = 0;
 int skorez = 0;
@@ -50,8 +50,14 @@ int Zterc;
 int rychblik = 500; //ms
 
 void setup() {
+
+  Serial.begin(9600);
   
   pinMode(vypin, OUTPUT);
+
+  pinMode(LTerpin, OUTPUT);
+  pinMode(LMpin, OUTPUT);
+  pinMode(LZpin, OUTPUT);
 
   pinMode(pinS0, OUTPUT); 
   pinMode(pinS1, OUTPUT); 
@@ -60,7 +66,7 @@ void setup() {
 
   Serial.begin(9600);
 
-  for(int i=0;i<80;i++){
+  for(int i = rozsah[starterc][0]; i <= rozsah[starterc][1];i++){
 
       LEDterce.setPixelColor(i, LEDterce.Color(255,0,0)); 
 
@@ -69,7 +75,8 @@ void setup() {
 
   do {
   delay(1);
-  } while (nactiKanal(starterc) > citlivost);
+  //Serial.println(nactiKanal(starterc));
+  } while (citlivost>nactiKanal(starterc));
 
   LEDmag.setPixelColor(0, LEDmag.Color(255,0,255));
   LEDzlu.setPixelColor(0, LEDzlu.Color(255,255,0));
@@ -78,7 +85,7 @@ void setup() {
 
   for(int i=0;i<80;i++){
 
-      LEDterce.setPixelColor(i, LEDterce.Color(255,165,0)); 
+      LEDterce.setPixelColor(i, LEDterce.Color(255,60,0)); 
 
       LEDterce.show(); 
   }
@@ -94,18 +101,29 @@ void setup() {
 
   delay(1000);
 
+  for(int i=0;i<80;i++){
+
+      LEDterce.setPixelColor(i, LEDterce.Color(0,0,0)); 
+
+      LEDterce.show(); 
+  }
+
 }
 
 void loop() {
+
+  Serial.println(skorez);
   
-  if(skorem < 50 && skorez < 50){
+  if(skorem < 36 && skorez < 36){
     
     do {
 
-      Mterc = random(0,15);
-      Zterc = random(0,15);
+      Mterc = random(0,16);
+        int r = random(17,20);
+      delay(r);
+      Zterc = random(0,16);
       
-    } while (Mterc != Zterc);
+    } while (Mterc == Zterc);
 
 
     for(int i = rozsah[Mterc][0]; i <= rozsah[Mterc][1];i++){
@@ -124,7 +142,7 @@ void loop() {
 
     do{
       if(nactiKanal(Mterc)>citlivost){
-        skorem =+ 5;
+        skorem = skorem + 3;
 
         for(int i=0;i<=skorem;i++){
 
@@ -152,13 +170,14 @@ void loop() {
           }
 
           delay(100);
+          
 
         }
 
         stav = 1;
       }
       else if(nactiKanal(Zterc)>citlivost){
-        skorez =+ 5;
+        skorez = skorez + 3;
 
         for(int i=0;i<=skorez;i++){
 
@@ -192,7 +211,7 @@ void loop() {
         stav = 1;
       };
       
-    } while(stav == 1);
+    } while(stav != 1);
 
     stav = 0;
 
@@ -205,11 +224,11 @@ void loop() {
 
 
   }
-  else if (skorem > 50 && skorez < 50){
+  else if (skorem >= 36 && skorez < 36){
 
     for(int i=0;i<11;i++){
 
-      for(int i=0;i<50;i++){
+      for(int i=0;i<36;i++){
 
         LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
 
@@ -225,7 +244,7 @@ void loop() {
 
       delay(rychblik);
 
-      for(int i=0;i<50;i++){
+      for(int i=0;i<36;i++){
 
         LEDmag.setPixelColor(i, LEDmag.Color(255,0,255)); 
 
@@ -250,14 +269,14 @@ void loop() {
       LEDterce.show(); 
     }
 
-    for(int i=0;i<50;i++){
+    for(int i=0;i<36;i++){
 
       LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
 
       LEDmag.show(); 
     }
 
-    for(int i=0;i<50;i++){
+    for(int i=0;i<36;i++){
 
       LEDzlu.setPixelColor(i, LEDzlu.Color(0,0,0)); 
 
@@ -267,11 +286,11 @@ void loop() {
     digitalWrite(vypin, HIGH);
 
   }
-  else if (skorem < 50 && skorez > 50){
+  else if (skorem < 36 && skorez >= 36){
 
     for(int i=0;i<11;i++){
 
-      for(int i=0;i<50;i++){
+      for(int i=0;i<36;i++){
 
         LEDzlu.setPixelColor(i, LEDzlu.Color(0,0,0)); 
 
@@ -287,7 +306,7 @@ void loop() {
 
       delay(rychblik);
 
-      for(int i=0;i<50;i++){
+      for(int i=0;i<36;i++){
 
         LEDzlu.setPixelColor(i, LEDzlu.Color(255,255,0)); 
 
@@ -312,14 +331,14 @@ void loop() {
       LEDterce.show(); 
     }
 
-    for(int i=0;i<50;i++){
+    for(int i=0;i<36;i++){
 
       LEDmag.setPixelColor(i, LEDmag.Color(0,0,0)); 
 
       LEDmag.show(); 
     }
 
-    for(int i=0;i<50;i++){
+    for(int i=0;i<36;i++){
 
       LEDzlu.setPixelColor(i, LEDzlu.Color(0,0,0)); 
 
